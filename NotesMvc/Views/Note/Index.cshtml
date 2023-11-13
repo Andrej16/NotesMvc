@@ -1,8 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Notebook";
 }
+@model IEnumerable<Domain.Note>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center">
+    <div class="row">
+        @foreach (var note in Model)
+        {
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h1 class="card-header">@note.Id</h1>
+                        <h5 class="card-title">@note.Title</h5>
+                        <p class="card-text">@note.Content</p>
+                        <input class="form-check-input" type="checkbox" value=@note.IsImportant>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
