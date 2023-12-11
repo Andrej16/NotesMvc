@@ -4,12 +4,12 @@
     {
         private static readonly List<Note> _notes = new List<Note>
         {
-            new Note() { Id = 1, Title = "First Note", Content = "Content of the first note", Created = DateTime.Now, IsImportant = true },
-            new Note() { Id = 2, Title = "Second Note", Content = "Content of the second note", Created = DateTime.Now, IsImportant = false },
-            new Note() { Id = 3, Title = "Third Note", Content = "Content of the third note", Created = DateTime.Now, IsImportant = true },
-            new Note() { Id = 4, Title = "Fourth Note", Content = "Content of the fourth note", Created = DateTime.Now, IsImportant = false },
-            new Note() { Id = 5, Title = "Fifth Note", Content = "Content of the fifth note", Created = DateTime.Now, IsImportant = true },
-            new Note() { Id = 6, Title = "Sixth Note", Content = "Content of the sixth note", Created = DateTime.Now, IsImportant = false }
+            Note.Create(1, "First Note", "Content of the first note", true),
+            Note.Create(2, "Second Note", "Content of the second note", false),
+            Note.Create(3, "Third Note", "Content of the third note", true),
+            Note.Create(4, "Fourth Note", "Content of the fourth note", false),
+            Note.Create(5, "Fifth Note", "Content of the fifth note", true),
+            Note.Create(6, "Sixth Note", "Content of the sixth note", false)
         };
 
         public List<Note> GetAll() => _notes;
@@ -18,7 +18,6 @@
 
         public void Add(Note note)
         {
-            note.Id = _notes.Max(n => n.Id) + 1;
             _notes.Add(note);
         }
 

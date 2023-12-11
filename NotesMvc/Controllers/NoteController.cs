@@ -27,14 +27,11 @@ namespace NotesMvc.Controllers
         public IActionResult Add(CreateNoteModel model)
         {
             _noteRepository.Add(
-                new Note
-                {
-                    Id = _noteRepository.GetAll().Count + 1,
-                    Title = model.Title,
-                    Content = model.Content,
-                    IsImportant = model.IsImportant,
-                    Created = DateTime.Now
-                });
+                Note.Create(
+                    _noteRepository.GetAll().Count + 1,
+                    model.Title,
+                    model.Content,
+                    model.IsImportant));
 
             return RedirectToAction(nameof(Index));
         }
