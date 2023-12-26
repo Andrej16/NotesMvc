@@ -1,4 +1,5 @@
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 #region // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<NotesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
 ConfigureServices(builder.Services);
 

@@ -2,23 +2,22 @@
 {
     public class NoteRepository
     {
-        private static readonly List<Note> _notes = new List<Note>
+        private readonly NotesContext _notesContext;
+
+        public NoteRepository(NotesContext notesContext)
         {
-            Note.Create(1, "First Note", "Content of the first note", true),
-            Note.Create(2, "Second Note", "Content of the second note", false),
-            Note.Create(3, "Third Note", "Content of the third note", true),
-            Note.Create(4, "Fourth Note", "Content of the fourth note", false),
-            Note.Create(5, "Fifth Note", "Content of the fifth note", true),
-            Note.Create(6, "Sixth Note", "Content of the sixth note", false)
-        };
+            this._notesContext = notesContext;
+        }
 
-        public List<Note> GetAll() => _notes;
+        public List<Note> GetAll() => _notesContext.Notes.ToList();
 
-        public Note? GetById(int id) => _notes.FirstOrDefault(n => n.Id == id);
+        public Note? GetById(int id) => _notesContext.Notes.FirstOrDefault(n => n.Id == id);
 
         public void Add(Note note)
         {
-            _notes.Add(note);
+            _notesContext.Notes.Add(note);
+
+            _notesContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -26,7 +25,8 @@
             var note = GetById(id);
             if (note != null)
             {
-                _notes.Remove(note);
+                _notesContext.Notes.Remove(note);
+                _notesContext.SaveChanges();
             }
         }
     }
